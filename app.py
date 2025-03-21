@@ -1,9 +1,36 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 import sqlite3
 import requests
 import hashlib
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///phishing_urls.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+
+# Define the database model
+
+
+class PhishingURL(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String(500), nullable=False)
+
+
+# Create database tables
+with app.app_context():
+    db.create_all()
+
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        url = request.form.get("url")
+        if url:
+            new_entry = PhishingURL(url=url)
+            db.session.add(new_entry)
+            db.session.commit()
+    phishing_urls = PhishingURL.query.all()
 
 # Function to check if URL is phishing
 
