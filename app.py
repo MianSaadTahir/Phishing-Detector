@@ -17,10 +17,6 @@ class PhishingURL(db.Model):
     url = db.Column(db.String(500), nullable=False)
 
 
-# Create database tables
-with app.app_context():
-    db.create_all()
-
 # Known malicious file hashes (example)
 malicious_hashes = {
     "5d41402abc4b2a76b9719d911017c592",  # Example MD5 hash
@@ -51,16 +47,19 @@ def check_file_hash(file):
 @app.route("/", methods=["GET", "POST"])
 def home():
     result = None
+    vt_result = None
+
     if request.method == "POST":
         url = request.form.get("url")
         if url:
             result = check_url(url)
+            vt_result = check_url_virustotal(url)  # VirusTotal check
+        # Store the URL in the database if it's phishing
+        if "⚠️" in result:
             new_entry = PhishingURL(url=url)
             db.session.add(new_entry)
-            db.session.commit()
-
-    phishing_urls = PhishingURL.query.all()
-    return render_template("index.html", result=result, urls=phishing_urls)
+            db.session.commit()  # <-- This commits the change to the database
+    return render_template("index.html", result=result, vt_result=vt_result)
 
 
 @app.route("/upload", methods=["POST"])
@@ -77,4 +76,6 @@ def upload_file():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
