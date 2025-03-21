@@ -18,6 +18,20 @@
     {% if result %}
     <div class="alert alert-warning mt-3">{{ result }}</div>
     {% endif %}
+
+    <!-- File Upload Form -->
+    <h3 class="mt-4">📂 Upload a File for Virus Scan</h3>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" class="form-control">
+        <button type="submit" class="btn btn-danger mt-2">Scan File</button>
+    </form>
+
+    {% if file_result %}
+    <div class="alert alert-warning mt-3">
+        <strong>Scan Result:</strong> {{ file_result }}
+    </div>
+    {% endif %}
+
 </body>
 
 </html>

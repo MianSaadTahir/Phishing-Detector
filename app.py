@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from utils import check_url_virustotal
+from utils import check_url_virustotal, check_file_virustotal
 import hashlib
 import os
 
@@ -64,6 +64,8 @@ def home():
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
+    file_result = None
+
     if "file" not in request.files:
         return "⚠️ No file uploaded."
 
@@ -71,8 +73,9 @@ def upload_file():
     if file.filename == "":
         return "⚠️ No file selected."
 
-    result = check_file_hash(file)
-    return result
+    file_result = check_file_virustotal(file)
+
+    return render_template("index.html", file_result=file_result)
 
 
 if __name__ == "__main__":

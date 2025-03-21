@@ -33,20 +33,21 @@ def get_url_report(scan_id):
         return "Error retrieving report"
 
 
-def check_file_virustotal(file_path):
+def check_file_virustotal(file):
     """Check if a file is malicious using VirusTotal API"""
     api_url = "https://www.virustotal.com/api/v3/files"
     headers = {"x-apikey": VIRUSTOTAL_API_KEY}
 
-    with open(file_path, "rb") as file:
-        files = {"file": file}
-        response = requests.post(api_url, headers=headers, files=files)
+    file.seek(0)  # Reset file pointer before reading
+    files = {"file": (file.filename, file.read())}
+
+    response = requests.post(api_url, headers=headers, files=files)
 
     if response.status_code == 200:
         scan_id = response.json().get("data", {}).get("id")
         return get_file_report(scan_id)
-    else:
-        return "Error scanning file"
+
+    return f"Error scanning file: {response.text}"
 
 
 def get_file_report(scan_id):
