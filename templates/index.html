@@ -1,37 +1,41 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phishing Detector</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { 
+            background-color: black; 
+            color: white; 
+            text-align: center; 
+            font-family: Arial, sans-serif;
+        }
+        .container { margin-top: 20%; }
+        a { 
+            display: block; 
+            margin: 20px auto; 
+            padding: 15px; 
+            background: yellow; 
+            color: black; 
+            text-decoration: none; 
+            font-weight: bold;
+            width: 250px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background: orange;
+        }
+    </style>
 </head>
-
-<body class="container mt-5">
-    <h2 class="text-center">Phishing Awareness & Detection Tool</h2>
-
-    <form method="POST" class="mt-4">
-        <label>Enter URL:</label>
-        <input type="text" name="url" class="form-control" placeholder="Enter website URL" required>
-        <button type="submit" class="btn btn-danger mt-3">Check URL</button>
-    </form>
-
-    {% if result %}
-    <div class="alert alert-warning mt-3">{{ result }}</div>
-    {% endif %}
-
-    <!-- File Upload Form -->
-    <h3 class="mt-4">📂 Upload a File for Virus Scan</h3>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" class="form-control">
-        <button type="submit" class="btn btn-danger mt-2">Scan File</button>
-    </form>
-
-    {% if file_result %}
-    <div class="alert alert-warning mt-3">
-        <strong>Scan Result:</strong> {{ file_result }}
+<body>
+    <div class="container">
+        <h1>Phishing Awareness & Detection Tool</h1>
+        <a href="{{ url_for('phishing_checker') }}">Check a URL</a>
+        <a href="{{ url_for('file_scan') }}">Scan a File</a>
+        <a href="{{ url_for('ddos_test') }}">DDoS Protection Test</a>
+        <a href="{{ url_for('pawned_checker') }}">Check Email & Password</a> <!-- ✅ New Button for Pawned Checker -->
     </div>
-    {% endif %}
-
 </body>
-
 </html>

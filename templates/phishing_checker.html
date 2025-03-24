@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Phishing URL Checker</title>
+    <style>
+        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 500px;
+            height: 50px;
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid white;
+            background-color: white;
+            color: black;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            width: 200px;
+            height: 50px;
+            font-size: 22px;
+            padding: 10px;
+            background-color: purple;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        button:hover {
+            background-color: darkviolet;
+        }
+        p {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+        .home-link {
+            margin-top: 30px;
+            color: violet;
+            text-decoration: none;
+            font-size: 20px;
+            display: block;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Check a URL for Phishing</h1>
+        <form method="post">
+            <input type="text" name="url" placeholder="Enter URL" required>
+            <button type="submit">Check</button>
+        </form>
+        {% if result %}
+            <p>{{ result }}</p>
+        {% endif %}
+        {% if vt_result %}
+            <p>{{ vt_result }}</p>
+        {% endif %}
+        <a href="{{ url_for('home') }}" class="home-link">🏠 Back to Home</a>
+    </div>
+</body>
+</html>

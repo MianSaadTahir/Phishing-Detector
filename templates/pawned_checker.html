@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pawned Email & Password Checker</title>
+    <style>
+        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 { font-size: 36px; margin-bottom: 20px; }
+        input { width: 400px; height: 40px; font-size: 18px; padding: 10px; margin-bottom: 20px; }
+        button {
+            width: 200px; height: 50px; font-size: 22px;
+            background-color: purple; color: white;
+            border: none; cursor: pointer; border-radius: 8px;
+        }
+        button:hover { background-color: darkviolet; }
+        p { font-size: 20px; margin-top: 20px; }
+        .home-link { margin-top: 30px; color: violet; text-decoration: none; font-size: 20px; }
+        .home-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Check if Your Email or Password is Pawned</h1>
+        <form method="post">
+            <input type="email" name="email" placeholder="Enter Email">
+            <button type="submit">Check Email</button>
+        </form>
+        <br>
+        <form method="post">
+            <input type="password" name="password" placeholder="Enter Password">
+            <button type="submit">Check Password</button>
+        </form>
+
+        {% if password_result %}
+            <p>{{ password_result }}</p>
+        {% endif %}
+
+        <a href="{{ url_for('home') }}" class="home-link">🏠 Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Too Many Requests</title>
+    <style>
+        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
+        .container { margin-top: 20%; }
+        h1 { font-size: 40px; color: red; }
+        p { font-size: 22px; }
+        button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: yellow;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        button:hover { background-color: orange; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 Too Many Requests!</h1>
+        <p>Your IP ({{ ip }}) has been blocked for too many requests.</p>
+        <p>⏳ Please wait a few minutes before trying again.</p>
+        <button onclick="window.location.href='{{ url_for('home') }}'">🏠 Go to Home</button>
+    </div>
+</body>
+</html>
