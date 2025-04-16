@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing Detector</title>
+    <title>Threat Guard</title>
     <style>
-        body { 
-            background-color: black; 
-            color: white; 
-            text-align: center; 
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
             font-family: Arial, sans-serif;
         }
-        .container { margin-top: 20%; }
-        a { 
-            display: block; 
-            margin: 20px auto; 
-            padding: 15px; 
-            background: yellow; 
-            color: black; 
-            text-decoration: none; 
+        
+        .container {
+            margin-top: 20%;
+        }
+        
+        a {
+            display: block;
+            margin: 20px auto;
+            padding: 15px;
+            background: yellow;
+            color: black;
+            text-decoration: none;
             font-weight: bold;
             width: 250px;
             font-size: 18px;
             border-radius: 5px;
         }
+        
         a:hover {
             background: orange;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h1>Phishing Awareness & Detection Tool</h1>
+        <h1>Threat Guard</h1>
         <a href="{{ url_for('phishing_checker') }}">Check a URL</a>
         <a href="{{ url_for('file_scan') }}">Scan a File</a>
         <a href="{{ url_for('ddos_test') }}">DDoS Protection Test</a>
-        <a href="{{ url_for('pawned_checker') }}">Check Email & Password</a> <!-- ✅ New Button for Pawned Checker -->
+        <a href="{{ url_for('pawned_checker') }}">Check Email & Password</a>
+        <!-- ✅ New Button for Pawned Checker -->
     </div>
 </body>
+
 </html>
