@@ -3,23 +3,59 @@
 <head>
     <title>Admin Panel - Blocked IPs</title>
     <style>
-        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
-        .container { margin-top: 5%; }
-        h1 { font-size: 36px; color: yellow; }
-        table { width: 50%; margin: auto; border-collapse: collapse; }
-        th, td { padding: 10px; border: 1px solid white; font-size: 18px; }
-        th { background-color: purple; }
-        a {
-            color: white; text-decoration: none;
-            padding: 5px 10px; background-color: red;
-            border-radius: 5px;
+        body {
+            background-color: #f5f8fa;
+            color: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
         }
-        a:hover { background-color: darkred; }
+        .container {
+            margin: 5% auto;
+            width: 80%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+        }
+        h1 {
+            font-size: 36px;
+            color: #007BFF;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        th, td {
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            font-size: 18px;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f6fc;
+        }
+        a {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🚨 Blocked IPs</h1>
+        <h1>🚨 Blocked IP Addresses</h1>
         <table>
             <tr>
                 <th>IP Address</th>

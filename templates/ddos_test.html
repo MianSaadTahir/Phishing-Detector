@@ -3,22 +3,51 @@
 <head>
     <title>DDoS Protection Test</title>
     <style>
-        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
-        .container { margin-top: 20%; }
-        h1 { font-size: 36px; }
-        p { font-size: 22px; }
-        button {
-            width: 250px; height: 50px; font-size: 22px;
-            background-color: purple; color: white;
-            border: none; cursor: pointer; border-radius: 8px;
+        body {
+            background-color: #f0f6fc;
+            color: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
         }
-        button:hover { background-color: darkviolet; }
+        .container {
+            margin-top: 15%;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.15);
+            width: 60%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {
+            font-size: 36px;
+            color: #007BFF;
+        }
+        p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        button {
+            width: 250px;
+            height: 50px;
+            font-size: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔥 DDoS Protection Test</h1>
-        <p>Click the button to simulate requests.</p>
+        <h1>🛡️ DDoS Protection Test</h1>
+        <p>Click the button below to simulate a request flood.</p>
         <button onclick="location.reload();">Send Request</button>
     </div>
 </body>

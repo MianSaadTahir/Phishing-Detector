@@ -1,50 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Threat Guard</title>
     <style>
         body {
-            background-color: black;
-            color: white;
+            background-color: #f4f9ff;
+            color: #2c3e50;
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         .container {
-            margin-top: 20%;
+            margin-top: 10%;
         }
-        
+        h1 {
+            font-size: 42px;
+            color: #007BFF;
+            margin-bottom: 40px;
+        }
         a {
             display: block;
-            margin: 20px auto;
-            padding: 15px;
-            background: yellow;
-            color: black;
+            margin: 15px auto;
+            padding: 15px 25px;
+            background-color: #007BFF;
+            color: white;
             text-decoration: none;
             font-weight: bold;
-            width: 250px;
+            border-radius: 8px;
             font-size: 18px;
-            border-radius: 5px;
+            width: 300px;
+            transition: background-color 0.3s ease;
         }
-        
         a:hover {
-            background: orange;
+            background-color: #0056b3;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>Threat Guard</h1>
-        <a href="{{ url_for('phishing_checker') }}">Check a URL</a>
-        <a href="{{ url_for('file_scan') }}">Scan a File</a>
-        <a href="{{ url_for('ddos_test') }}">DDoS Protection Test</a>
-        <a href="{{ url_for('pawned_checker') }}">Check Email & Password</a>
-        <!-- ✅ New Button for Pawned Checker -->
+        <h1>🛡️ Threat Guard</h1>
+        <a href="{{ url_for('phishing_checker') }}">🔍 Check a URL</a>
+        <a href="{{ url_for('file_scan') }}">🗂️ Scan a File</a>
+        <a href="{{ url_for('ddos_test') }}">🛡️ DDoS Protection Test</a>
+        <a href="{{ url_for('pawned_checker') }}">📧 Check Email & Password</a> <!-- ✅ Pawned Checker -->
     </div>
 </body>
-
 </html>

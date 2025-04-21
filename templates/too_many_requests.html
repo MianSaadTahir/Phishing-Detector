@@ -3,28 +3,44 @@
 <head>
     <title>Too Many Requests</title>
     <style>
-        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
-        .container { margin-top: 20%; }
-        h1 { font-size: 40px; color: red; }
-        p { font-size: 22px; }
+        body {
+            background-color: #f4f9ff;
+            color: #2c3e50;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin-top: 15%;
+        }
+        h1 {
+            font-size: 42px;
+            color: #dc3545;
+        }
+        p {
+            font-size: 22px;
+            margin: 10px 0;
+        }
         button {
-            margin-top: 20px;
-            padding: 15px 30px;
+            margin-top: 30px;
+            padding: 15px 35px;
             font-size: 20px;
-            background-color: yellow;
-            color: black;
+            background-color: #007BFF;
+            color: white;
             border: none;
             cursor: pointer;
             border-radius: 8px;
             font-weight: bold;
+            transition: background-color 0.3s ease;
         }
-        button:hover { background-color: orange; }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🚨 Too Many Requests!</h1>
-        <p>Your IP ({{ ip }}) has been blocked for too many requests.</p>
+        <p>Your IP ({{ ip }}) has been temporarily blocked.</p>
         <p>⏳ Please wait a few minutes before trying again.</p>
         <button onclick="window.location.href='{{ url_for('home') }}'">🏠 Go to Home</button>
     </div>

@@ -3,7 +3,12 @@
 <head>
     <title>Phishing URL Checker</title>
     <style>
-        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
+        body {
+            background-color: #f5faff;
+            color: #2c3e50;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         .container {
             display: flex;
             flex-direction: column;
@@ -14,32 +19,33 @@
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
+            color: #007BFF;
         }
         input[type="text"] {
-            width: 500px;
-            height: 50px;
-            font-size: 20px;
+            width: 480px;
+            height: 48px;
+            font-size: 18px;
             padding: 10px;
-            border-radius: 8px;
-            border: 2px solid white;
-            background-color: white;
-            color: black;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+            color: #2c3e50;
             text-align: center;
             margin-bottom: 20px;
         }
         button {
             width: 200px;
             height: 50px;
-            font-size: 22px;
-            padding: 10px;
-            background-color: purple;
+            font-size: 20px;
+            background-color: #007BFF;
             color: white;
             border: none;
-            cursor: pointer;
             border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: darkviolet;
+            background-color: #0056b3;
         }
         p {
             font-size: 20px;
@@ -47,10 +53,9 @@
         }
         .home-link {
             margin-top: 30px;
-            color: violet;
+            color: #007BFF;
             text-decoration: none;
-            font-size: 20px;
-            display: block;
+            font-size: 18px;
         }
         .home-link:hover {
             text-decoration: underline;
@@ -59,17 +64,19 @@
 </head>
 <body>
     <div class="container">
-        <h1>Check a URL for Phishing</h1>
+        <h1>🔍 Check a URL for Phishing</h1>
         <form method="post">
             <input type="text" name="url" placeholder="Enter URL" required>
             <button type="submit">Check</button>
         </form>
+
         {% if result %}
             <p>{{ result }}</p>
         {% endif %}
         {% if vt_result %}
             <p>{{ vt_result }}</p>
         {% endif %}
+
         <a href="{{ url_for('home') }}" class="home-link">🏠 Back to Home</a>
     </div>
 </body>

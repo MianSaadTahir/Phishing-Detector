@@ -3,14 +3,40 @@
 <head>
     <title>Pawned Checker</title>
     <style>
-        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
-        .container { margin-top: 20%; }
-        a { display: block; margin: 20px; padding: 15px; background: yellow; color: black; text-decoration: none; font-weight: bold; }
+        body {
+            background-color: #f4f9ff;
+            color: #2c3e50;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            margin-top: 20%;
+        }
+        h1 {
+            font-size: 36px;
+            color: #007BFF;
+        }
+        a {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 18px;
+            width: 250px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Pawned Email & Password Checker</h1>
+        <h1>🛡️ Pawned Email & Password Checker</h1>
         <a href="{{ url_for('pawned_checker') }}">Check Email/Password</a>
     </div>
 </body>

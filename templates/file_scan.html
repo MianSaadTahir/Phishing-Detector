@@ -3,43 +3,49 @@
 <head>
     <title>File Scanner</title>
     <style>
-        body { background-color: black; color: white; text-align: center; font-family: Arial, sans-serif; }
+        body {
+            background-color: #f0f6fc;
+            color: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            padding: 30px;
         }
         h1 {
             font-size: 36px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            color: #007BFF;
         }
         input[type="file"] {
-            width: 500px;
-            height: 50px;
-            font-size: 20px;
+            width: 450px;
+            height: 45px;
+            font-size: 18px;
             padding: 10px;
             border-radius: 8px;
             background-color: white;
-            color: black;
-            text-align: center;
-            border: 2px solid white;
+            color: #2c3e50;
+            border: 2px solid #007BFF;
             margin-bottom: 20px;
         }
         button {
             width: 200px;
-            height: 50px;
-            font-size: 22px;
-            padding: 10px;
-            background-color: purple;
+            height: 45px;
+            font-size: 20px;
+            background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 8px;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: darkviolet;
+            background-color: #0056b3;
         }
         p {
             font-size: 20px;
@@ -47,10 +53,9 @@
         }
         .home-link {
             margin-top: 30px;
-            color: violet;
+            color: #007BFF;
             text-decoration: none;
-            font-size: 20px;
-            display: block;
+            font-size: 18px;
         }
         .home-link:hover {
             text-decoration: underline;
@@ -59,7 +64,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Scan a File for Malware</h1>
+        <h1>🧪 Scan a File for Malware</h1>
         <form method="post" enctype="multipart/form-data">
             <input type="file" name="file" required>
             <button type="submit">Scan</button>
