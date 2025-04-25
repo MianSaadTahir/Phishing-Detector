@@ -1,6 +1,10 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-VIRUSTOTAL_API_KEY = "4eb445adf1065838a052f3e577c333d0008fbfe9a3b5a26d6f46c2d441005308"
+load_dotenv()
+
+VIRUSTOTAL_API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
 
 
 def check_url_virustotal(url):
