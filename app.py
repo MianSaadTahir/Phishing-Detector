@@ -4,13 +4,13 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import hashlib
 from utils import check_url_virustotal, check_file_virustotal
-from pawned_check import check_password_pawned  # ✅ Import Pawned Checker
+from pawned_check import check_password_pawned
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///phishing_urls.db'
 app.config['SQLALCHEMY_BINDS'] = {
     'blocked_ips': 'sqlite:///blocked_ips.db',
-    'pawned_data': 'sqlite:///pawned_data.db'  # ✅ New Database for Pawned Data
+    'pawned_data': 'sqlite:///pawned_data.db'
 }
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your_secret_key'  # Needed for flashing messages
@@ -23,7 +23,7 @@ app.config['RATELIMIT_STORAGE_URI'] = "memory://"
 limiter = Limiter(get_remote_address)
 limiter.init_app(app)
 
-# ✅ Phishing URLs Database
+#  Phishing URLs Database
 
 
 class PhishingURL(db.Model):
@@ -32,7 +32,7 @@ class PhishingURL(db.Model):
     status = db.Column(db.String(20), nullable=False)  # "Safe" or "Phishing"
     detected_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-# ✅ Blocked IPs Database
+#  Blocked IPs Database
 
 
 class BlockedIP(db.Model):
@@ -40,7 +40,7 @@ class BlockedIP(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ip_address = db.Column(db.String(50), unique=True, nullable=False)
 
-# ✅ Pawned Emails & Passwords Database
+#  Pawned Emails & Passwords Database
 
 
 class PawnedData(db.Model):
@@ -50,7 +50,7 @@ class PawnedData(db.Model):
     password_hash = db.Column(db.String(255), unique=True, nullable=True)
     breaches_count = db.Column(db.Integer, default=0)
 
-# ✅ Function to check if URL is phishing
+#  Function to check if URL is phishing
 
 
 def check_url(url):
@@ -61,7 +61,7 @@ def check_url(url):
         return "⚠️ Warning: Website is not using HTTPS."
     return "✅ URL is safe."
 
-# ✅ Function to check file hash
+#  Function to check file hash
 
 
 def check_file_hash(file):
@@ -70,7 +70,7 @@ def check_file_hash(file):
         return "⚠️ Warning: Malicious file detected!"
     return "✅ File is safe."
 
-# ✅ Home Page
+#  Home Page
 
 
 @app.route("/")
@@ -78,7 +78,7 @@ def check_file_hash(file):
 def home():
     return render_template("index.html")
 
-# ✅ Phishing URL Checker
+#  Phishing URL Checker
 
 
 @app.route("/phishing_checker", methods=["GET", "POST"])
@@ -103,7 +103,7 @@ def phishing_checker():
 
     return render_template("phishing_checker.html", result=result, vt_result=vt_result)
 
-# ✅ File Scanner
+#  File Scanner
 
 
 @app.route("/file_scan", methods=["GET", "POST"])
@@ -123,7 +123,7 @@ def file_scan():
 
     return render_template("file_scan.html", file_result=file_result)
 
-# ✅ Pawned Checker - Email & Passwords
+#  Pawned Checker - Email & Passwords
 
 
 @app.route("/pawned_checker", methods=["GET", "POST"])
@@ -160,7 +160,7 @@ def pawned_checker():
 
     return render_template("pawned_checker.html", password_result=password_result)
 
-# ✅ DDoS Protection - Too Many Requests
+#  DDoS Protection - Too Many Requests
 
 
 @app.errorhandler(429)
@@ -171,14 +171,14 @@ def too_many_requests(e):
         db.session.commit()
     return render_template("too_many_requests.html", ip=ip), 429
 
-# ✅ Admin Panel - View Blocked IPs
+# Admin Panel - View Blocked IPs
 
 
 @app.route("/admin")
 def admin():
     return render_template("admin.html", blocked_ips=BlockedIP.query.all())
 
-# ✅ Admin Panel - Unblock an IP
+# Admin Panel - Unblock an IP
 
 
 @app.route("/unblock/<ip>")
@@ -189,7 +189,7 @@ def unblock(ip):
         db.session.commit()
     return redirect(url_for("admin"))
 
-# ✅ DDoS Test
+#  DDoS Test
 
 
 @app.route("/ddos_test")
