@@ -1,6 +1,7 @@
 import requests
 
-VIRUSTOTAL_API_KEY = "4eb445adf1065838a052f3e577c333d0008fbfe9a3b5a26d6f46c2d441005308"  # Keep as before
+VIRUSTOTAL_API_KEY = "4eb445adf1065838a052f3e577c333d0008fbfe9a3b5a26d6f46c2d441005308"
+
 
 def check_url_virustotal(url):
     """Check if a URL is malicious using VirusTotal API"""
@@ -16,6 +17,7 @@ def check_url_virustotal(url):
 
     return "Error scanning URL"
 
+
 def get_url_report(scan_id):
     """Retrieve URL scan report from VirusTotal"""
     report_url = f"https://www.virustotal.com/api/v3/analyses/{scan_id}"
@@ -27,8 +29,9 @@ def get_url_report(scan_id):
         report = response.json()
         stats = report["data"]["attributes"]["stats"]
         return f"Malicious: {stats['malicious']}, Suspicious: {stats['suspicious']}"
-    
+
     return "Error retrieving report"
+
 
 def check_file_virustotal(file):
     """Check if a file is malicious using VirusTotal API"""
@@ -46,6 +49,7 @@ def check_file_virustotal(file):
 
     return f"Error scanning file: {response.text}"
 
+
 def get_file_report(scan_id):
     """Retrieve file scan report from VirusTotal"""
     report_url = f"https://www.virustotal.com/api/v3/analyses/{scan_id}"
@@ -57,5 +61,5 @@ def get_file_report(scan_id):
         report = response.json()
         stats = report["data"]["attributes"]["stats"]
         return f"Malicious: {stats['malicious']}, Suspicious: {stats['suspicious']}"
-    
+
     return "Error retrieving report"

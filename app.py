@@ -18,11 +18,14 @@ app.config['SECRET_KEY'] = 'your_secret_key'  # Needed for flashing messages
 db = SQLAlchemy(app)
 
 # Rate Limiting
-app.config['RATELIMIT_STORAGE_URI'] = "memory://"  # Change to Redis in production
+# Change to Redis in production
+app.config['RATELIMIT_STORAGE_URI'] = "memory://"
 limiter = Limiter(get_remote_address)
 limiter.init_app(app)
 
 # ✅ Phishing URLs Database
+
+
 class PhishingURL(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(500), unique=True, nullable=False)
@@ -30,12 +33,16 @@ class PhishingURL(db.Model):
     detected_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
 # ✅ Blocked IPs Database
+
+
 class BlockedIP(db.Model):
     __bind_key__ = 'blocked_ips'
     id = db.Column(db.Integer, primary_key=True)
     ip_address = db.Column(db.String(50), unique=True, nullable=False)
 
 # ✅ Pawned Emails & Passwords Database
+
+
 class PawnedData(db.Model):
     __bind_key__ = 'pawned_data'
     id = db.Column(db.Integer, primary_key=True)
@@ -44,6 +51,8 @@ class PawnedData(db.Model):
     breaches_count = db.Column(db.Integer, default=0)
 
 # ✅ Function to check if URL is phishing
+
+
 def check_url(url):
     phishing_keywords = ["login", "verify", "secure", "bank", "update"]
     if any(keyword in url.lower() for keyword in phishing_keywords):
@@ -53,6 +62,8 @@ def check_url(url):
     return "✅ URL is safe."
 
 # ✅ Function to check file hash
+
+
 def check_file_hash(file):
     file_hash = hashlib.sha256(file.read()).hexdigest()
     if file_hash in malicious_hashes:
@@ -60,12 +71,16 @@ def check_file_hash(file):
     return "✅ File is safe."
 
 # ✅ Home Page
+
+
 @app.route("/")
 @limiter.limit("5 per minute")
 def home():
     return render_template("index.html")
 
 # ✅ Phishing URL Checker
+
+
 @app.route("/phishing_checker", methods=["GET", "POST"])
 @limiter.limit("5 per minute")
 def phishing_checker():
@@ -89,6 +104,8 @@ def phishing_checker():
     return render_template("phishing_checker.html", result=result, vt_result=vt_result)
 
 # ✅ File Scanner
+
+
 @app.route("/file_scan", methods=["GET", "POST"])
 @limiter.limit("5 per minute")
 def file_scan():
@@ -107,6 +124,8 @@ def file_scan():
     return render_template("file_scan.html", file_result=file_result)
 
 # ✅ Pawned Checker - Email & Passwords
+
+
 @app.route("/pawned_checker", methods=["GET", "POST"])
 @limiter.limit("5 per minute")
 def pawned_checker():
@@ -125,12 +144,15 @@ def pawned_checker():
             return redirect(f"https://haveibeenpwned.com/account/{email}")
 
         if password:
-            password_count, password_hash = check_password_pawned(password, return_hash=True)
+            password_count, password_hash = check_password_pawned(
+                password, return_hash=True)
 
             # Store Password Hash & Breach Count
-            existing_password = PawnedData.query.filter_by(password_hash=password_hash).first()
+            existing_password = PawnedData.query.filter_by(
+                password_hash=password_hash).first()
             if not existing_password:
-                new_password = PawnedData(password_hash=password_hash, breaches_count=password_count)
+                new_password = PawnedData(
+                    password_hash=password_hash, breaches_count=password_count)
                 db.session.add(new_password)
                 db.session.commit()
 
@@ -139,6 +161,8 @@ def pawned_checker():
     return render_template("pawned_checker.html", password_result=password_result)
 
 # ✅ DDoS Protection - Too Many Requests
+
+
 @app.errorhandler(429)
 def too_many_requests(e):
     ip = get_remote_address()
@@ -148,11 +172,15 @@ def too_many_requests(e):
     return render_template("too_many_requests.html", ip=ip), 429
 
 # ✅ Admin Panel - View Blocked IPs
+
+
 @app.route("/admin")
 def admin():
     return render_template("admin.html", blocked_ips=BlockedIP.query.all())
 
 # ✅ Admin Panel - Unblock an IP
+
+
 @app.route("/unblock/<ip>")
 def unblock(ip):
     blocked_ip = BlockedIP.query.filter_by(ip_address=ip).first()
@@ -162,10 +190,13 @@ def unblock(ip):
     return redirect(url_for("admin"))
 
 # ✅ DDoS Test
+
+
 @app.route("/ddos_test")
 @limiter.limit("5 per minute")
 def ddos_test():
     return render_template("ddos_test.html")
+
 
 if __name__ == "__main__":
     with app.app_context():
