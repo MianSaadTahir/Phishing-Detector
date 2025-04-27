@@ -60,15 +60,37 @@
         .home-link:hover {
             text-decoration: underline;
         }
+        #qr-scanner {
+            width: 480px;
+            height: 360px;
+            margin-top: 20px;
+            display: none;
+        }
+        #scan-result {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #007BFF;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🔍 Check a URL for Phishing</h1>
+        
+        <!-- URL input form -->
         <form method="post">
             <input type="text" name="url" placeholder="Enter URL" required>
             <button type="submit">Check</button>
         </form>
+
+        <!-- QR Code Scanning Button -->
+        <button id="scan-qr-btn" onclick="startQRScanner()">Scan QR Code</button>
+
+        <!-- Video feed for QR scanner -->
+        <video id="qr-scanner" width="480" height="360"></video>
+
+        <!-- Display the result of the QR code scan -->
+        <div id="scan-result"></div>
 
         {% if result %}
             <p>{{ result }}</p>
@@ -79,5 +101,87 @@
 
         <a href="{{ url_for('home') }}" class="home-link">🏠 Back to Home</a>
     </div>
+
+    <!-- Include the jsQR library -->
+    <script src="https://unpkg.com/jsqr/dist/jsQR.js"></script>
+
+    <script>
+        // QR Code Scanning functionality
+        function startQRScanner() {
+            const videoElement = document.getElementById('qr-scanner');
+            const resultElement = document.getElementById('scan-result');
+            videoElement.style.display = 'block'; // Show the video element
+    
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                    .then(function(stream) {
+                        videoElement.srcObject = stream;
+                        videoElement.play();
+    
+                        videoElement.onloadedmetadata = function() {
+                            // Ensure canvas dimensions match the video dimensions
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.width = videoElement.videoWidth;
+                            canvas.height = videoElement.videoHeight;
+    
+                            // Continuously scan for QR codes
+                            const scanQRCode = function() {
+                                context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                                const code = jsQR(imageData.data, canvas.width, canvas.height);
+    
+                                if (code) {
+                                    // Stop the video feed when a QR code is detected
+                                    const stream = videoElement.srcObject;
+                                    const tracks = stream.getTracks();
+                                    tracks.forEach(track => track.stop());
+                                    videoElement.style.display = 'none';
+    
+                                    // Show the scanned URL result
+                                    resultElement.textContent = 'QR Code Result: ' + code.data;
+    
+                                    // Optionally, check the scanned URL against the phishing checker
+                                    checkQRCodeURL(code.data);
+                                } else {
+                                    requestAnimationFrame(scanQRCode);
+                                }
+                            };
+    
+                            scanQRCode(); // Start scanning
+                        };
+    
+                    })
+                    .catch(function(error) {
+                        alert("Error accessing camera: " + error);
+                    });
+            } else {
+                alert("Your browser does not support camera access for QR scanning.");
+            }
+        }
+    
+        // Function to check the URL from the QR code
+        function checkQRCodeURL(qrData) {
+            fetch('/check_qr_code', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ qr_data: qrData })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultElement = document.getElementById('scan-result');
+                resultElement.innerHTML = `
+                    <p>QR Code: ${qrData}</p>
+                    <p>Phishing Status: ${data.result}</p>
+                    <p>VirusTotal Status: ${data.vt_result}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error checking QR code URL:', error);
+            });
+        }
+    </script>    
 </body>
 </html>

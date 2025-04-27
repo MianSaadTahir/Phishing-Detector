@@ -20,19 +20,20 @@
             font-size: 22px;
             margin: 10px 0;
         }
-        button {
+        .home-button {
             margin-top: 30px;
             padding: 15px 35px;
             font-size: 20px;
             background-color: #007BFF;
             color: white;
             border: none;
-            cursor: pointer;
             border-radius: 8px;
             font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
             transition: background-color 0.3s ease;
         }
-        button:hover {
+        .home-button:hover {
             background-color: #0056b3;
         }
     </style>
@@ -42,7 +43,7 @@
         <h1>🚨 Too Many Requests!</h1>
         <p>Your IP ({{ ip }}) has been temporarily blocked.</p>
         <p>⏳ Please wait a few minutes before trying again.</p>
-        <button onclick="window.location.href='{{ url_for('home') }}'">🏠 Go to Home</button>
+        <a href="{{ url_for('home') }}" class="home-button">🏠 Go to Home</a>
     </div>
 </body>
 </html>
