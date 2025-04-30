@@ -14,8 +14,8 @@
 
 ## Features
 
-- **URL and File Scanning**: Scan links, QR codes and uploaded files for malware and phishing threats.
-- **Pawned Detection**: Uses HaveIBeenPwned API to detect breached emails and passwords.
+- **URL and File Scanning**: Scan links, QR codes, and uploaded files for malware and phishing threats.
+- **Pawned Detection**: Check if emails or passwords have been exposed in data breaches using the HaveIBeenPwned API.
 - **User Authentication**: Secure sign-up/login system with hashed passwords.
 - **Database Architecture**: SQLite used for storing users, phishing URLs, IPs, and breach data.
 
@@ -39,6 +39,7 @@
    `cd threat-guard`
 3. Install required dependencies
 4. Run the app by typing `python app.py` in terminal.
+5. Open the provided local address in your browser to start using the app.
 
 ## Documentation
 
