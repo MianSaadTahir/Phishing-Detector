@@ -37,9 +37,13 @@
    `git clone https://github.com/miansaadtahir/threat-guard.git`
 2. Navigate to the project directory:
    `cd threat-guard`
-3. Install required dependencies
-4. Run the app by typing `python app.py` in terminal.
-5. Open the provided local address in your browser to start using the app.
+3. Open terminal in the project directory.
+4. Install required dependencies:
+   `pip install -r requirements.txt`
+5. Create a `.env` file in the root directory and add your VirusTotal API key.
+6. Run the application:
+   `python app.py`
+7. Open the local address shown in the terminal `(e.g., http://127.0.0.1:5000)` in your browser to start using the app.
 
 ## Documentation
 
