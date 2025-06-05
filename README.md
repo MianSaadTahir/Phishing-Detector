@@ -49,13 +49,10 @@ For a detailed overview of the project, refer to the [Documentation](./documenta
 - Python
 - Flask
 - SQLite
-- Flask-Limiter
 - Jinja2
 - HTML5
 - CSS3
 - JS
-- VirusTotal API
-- HaveIBeenPwned API
 
 ## Contributing
 Contributions, issues, and feature requests are welcome!  
